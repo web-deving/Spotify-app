@@ -1,20 +1,23 @@
+{% include "base.html" %}
 <p>Is this your first time with us? <a href="{{ url_for('register') }}">Register here</a></p>
 <h1>Log in</h1>
 <form action="{{ url_for('login') }}" method="post">
     {{ form.hidden_tag() }}
+    {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <span style="color: red;">[{{ message }}]</span>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
     <p>
         {{ form.username.label }}<br>
         {{ form.username(size=32) }}<br>
-        {% for error in form.username.errors %}
-        <span style="color: red;">[{{ error }}]</span>
-        {% endfor %}
-    </p>
-    <p>
-        {{ form.password.label }}<br>
-        {{ form.password (size=64) }}<br>
-        {% for error in form.password.errors %}
-        <span style="color: red;">[{{ error }}]</span>
-        {% endfor %}
-    </p>
-    <p>{{ form.submit() }}</p>
+        
+        </p>
+        <p>
+            {{ form.password.label }}<br>
+            {{ form.password (size=64) }}<br>
+        </p>
+        <p>{{ form.submit() }}</p>
 </form>
