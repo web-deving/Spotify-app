@@ -12,8 +12,6 @@
         <div>
                 Home:
                 <a href="{{ url_for('index') }}">Home</a>
-                <a href="{{ url_for('profile') }}">Profile</a>
-                <a href="{{ url_for('history') }}">History</a>
                 {% if current_user.is_anonymous %}
                 <a href="{{ url_for('login') }}">Login</a>
                 {% else %}
