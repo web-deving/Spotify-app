@@ -5,8 +5,11 @@ from app import app, db
 from app.forms import LoginForm, RegistrationForm
 from app.models import User
 
-
 @app.route('/')
+@app.route('/home')
+def home():
+    return render_template('home.html')
+
 @app.route('/index')
 @login_required
 def index():
@@ -21,6 +24,8 @@ def index():
         }
     ]
     return render_template('index.html', title='Home', posts=posts)
+
+
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -44,7 +49,7 @@ def login():
 @app.route('/logout')
 def logout():
     logout_user()
-    return redirect(url_for('index'))
+    return redirect(url_for('home'))
 
 
 @app.route('/register', methods=['GET', 'POST'])
