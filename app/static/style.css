@@ -150,7 +150,12 @@ a,
 
 img {
      max-width: 100%;
-     height: auto;
+     height: auto;   
+}
+
+#logo{
+     width: 3em;
+     height: 2em;
 }
 
  :focus {

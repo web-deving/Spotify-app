@@ -26,8 +26,6 @@ def index():
     return render_template('index.html', title='Home', posts=posts)
 
 
-
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
@@ -52,6 +50,9 @@ def logout():
     return redirect(url_for('home'))
 
 
+@app.route('/profile')
+def profile():
+    pass
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:

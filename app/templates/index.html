@@ -1,6 +1,10 @@
-{% include "base.html" %}
+{% extends "base.html" %}
 
 {% block content %}
     <h1>Hi, {{ current_user.username }}!</h1>
     <p>How are you feeling today?</p>
+    <p>insert a kind of slide here for mood selection</p>
+    <p> Let's get you a song to match that!</p>
+    <button>Lets be random</button>
+    <button>Use my playlist</button>
 {% endblock %}
