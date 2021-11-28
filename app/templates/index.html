@@ -3,7 +3,10 @@
 {% block content %}
     <h1>Hi, {{ current_user.username }}!</h1>
     <p>How are you feeling today?</p>
-    <p>insert a kind of slide here for mood selection</p>
+    <div class= "slidecontainer">
+        <input type="range" min="0.0" max="1.0" value="0.5" class="slider" id="myRange">
+        <input type="range" min="0.0" max="1.0" value="0.5" class="slider2" id="myRange2">
+    </div>
     <p> Let's get you a song to match that!</p>
     <button>Lets be random</button>
     <button>Use my playlist</button>
