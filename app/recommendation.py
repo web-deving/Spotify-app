@@ -1,54 +1,42 @@
-from numpy.linalg.linalg import _determine_error_states
 import pandas as pd
-import random
-
-from pandas.core import api
-import authorization
+from app.authorization import *
 import numpy as np
 from numpy.linalg import norm
-
-#read in dataframe
-df_general = pd.read_csv("valence_arousal_dataset.csv")
-df_specific = authorization.authorize_specific()
-#valence + energy = mood vector
-df_general["mood_vec"] = df_general[["valence", "energy"]].values.toList()
-df_specific["mood_vec"] = df_specific[["valence", "energy"]].values.toList()
-
-#authorize
-sp = authorization.authorize_general()
-
+import os
 #Recommendation Alg from https://towardsdatascience.com/build-your-first-mood-based-music-recommendation-system-in-python-26a427308d96
 
 #  takes in valence and energy numbers, dataframe, api, and num of songs wanted 
-def recommend_general(valence, energy, ref_df = df_general, sp, n_recs):
+def recommend_general(valence, energy, n_recs):
+    #  read in dataframe
+    target = os.path.join("app/",'valence_arousal_dataset.csv')
+    ref_df = pd.read_csv(target)
+    # df_specific = authorization.authorize_specific()
+    #  valence + energy = mood vector for each track
     
-    # 1. Crawl valence and arousal of given track from spotify api
-    track_features = sp.track_audio_features(track_id)
-    track_moodvec = np.array([track_features.valence, track_features.energy])
-    
+    ref_df["mood_vec"] = ref_df[["valence", "energy"]].values.tolist()
+    # df_specific["mood_vec"] = df_specific[["valence", "energy"]].values.toList()
+    #  authorize
+    sp = authorize_general()
+    track_moodvec = np.array([valence, energy])
     # 2. Compute distances to all reference tracks
     ref_df["distances"] = ref_df["mood_vec"].apply(lambda x: norm(track_moodvec-np.array(x)))
     # 3. Sort distances from lowest to highest
     ref_df_sorted = ref_df.sort_values(by = "distances", ascending = True)
-    # 4. If the input track is in the reference set, it will have a distance of 0, but should not be recommendended
-    ref_df_sorted = ref_df_sorted[ref_df_sorted["id"] != track_id]
-    
-    # 5. Return n recommendations
-    return ref_df_sorted.iloc[:n_recs]
+    # 4. Return n recommendations
+
+    result = ref_df_sorted.iloc[:n_recs] #  can index the song info
+    result = result.to_string(index = False, header = False)
+    return result
 
 #  takes in valence and energy numbers, rather than dataframe take in liked songs,
 #  api, and num of songs wanted 
-def recommend_specific(valence, energy, ref_df = df_specific, sp, n_recs):
-    # 1. Crawl valence and arousal of given track from spotify api
-    track_features = sp.track_audio_features(track_id)
-    track_moodvec = np.array([track_features.valence, track_features.energy])
-    
+def recommend_specific(valence, energy, sp, n_recs,):
+    track_moodvec = np.array([valence, energy])
     # 2. Compute distances to all reference tracks
-    ref_df["distances"] = ref_df["mood_vec"].apply(lambda x: norm(track_moodvec-np.array(x)))
     # 3. Sort distances from lowest to highest
-    ref_df_sorted = ref_df.sort_values(by = "distances", ascending = True)
+    #  do this but for all the tracks in array?
     # 4. If the input track is in the reference set, it will have a distance of 0, but should not be recommendended
-    ref_df_sorted = ref_df_sorted[ref_df_sorted["id"] != track_id]
+    #  ref_df_sorted = ref_df_sorted[ref_df_sorted["id"] != track_id]
     
     # 5. Return n recommendations
-    return ref_df_sorted.iloc[:n_recs]
+    #  return ref_df_sorted.iloc[:n_recs]

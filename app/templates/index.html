@@ -1,13 +1,156 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Hi, {{ current_user.username }}!</h1>
-    <p>How are you feeling today?</p>
-    <div class= "slidecontainer">
-        <input type="range" min="0.0" max="1.0" value="0.5" class="slider" id="myRange">
-        <input type="range" min="0.0" max="1.0" value="0.5" class="slider2" id="myRange2">
+<h1>Hi, {{ current_user.username }}!</h1>
+<p>How are you feeling today?</p>
+<p>Valence is positive or negative affectivity</p>
+<p>Arousal measures how calming or exciting</p>
+<form action="{{ url_for('index') }}" method="post">
+    <div class="container">
+        <div class="slider-ui color1">
+            {{ form.energy(min=0, max=1, step=0.02, value=0.5) }}
+            <div class="bar">
+                <span class="min">calm</span>
+                <span class="max">exciting</span>
+            </div>
+            <div class="track">
+                <div class="value"></div>
+            </div>
+        </div>
+
+        <div class="slider-ui color1">
+            {{ form.feeling(min=0, max=1, step=0.02, value=0.5) }}
+            <div class="bar">
+                <span class="min" id="fmin">negative</span>
+                <span class="max" id="fmax">positive</span>
+            </div>
+            <div class="track">
+                <div class="value"></div>
+            </div>
+        </div>
+        <p></p>
+        {{ form.submit1() }}
+        {{ form.submit2() }}
     </div>
-    <p> Let's get you a song to match that!</p>
-    <button>Lets be random</button>
-    <button>Use my playlist</button>
+
+</form>
+<style>
+    .slider-ui {
+        position: relative;
+        width: 500px;
+        height: 50px;
+        margin: 70px 0;
+    }
+
+    .slider-ui input {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        cursor: pointer;
+        opacity: 0;
+    }
+
+    .slider-ui .bar {
+        position: absolute;
+        z-index: 1;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background-color: #000;
+        border-radius: 50px;
+        box-shadow: 0 5px 0 rgba(0, 0, 0, .1);
+    }
+
+    .slider-ui .min,
+    .slider-ui .max {
+        position: absolute;
+        z-index: 2;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 14px;
+        font-weight: 800;
+        color: #fff;
+    }
+
+    .slider-ui .min {
+        left: 2%;
+    }
+
+    .slider-ui .max {
+        right: 2%;
+    }
+
+    .slider-ui .track {
+        position: absolute;
+        z-index: 3;
+        left: 25px;
+        right: 25px;
+        top: 0;
+        bottom: 0;
+    }
+
+    .slider-ui .value {
+        position: absolute;
+        left: 50%;
+        top: 0;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 14px;
+        font-weight: 800;
+        color: #fff;
+        background-color: #fff;
+        border: 4px solid #000;
+        border-radius: 100%;
+        box-sizing: border-box;
+        transform: translateX(-50%);
+        transition: top .3s ease-in-out, color .3s ease-in-out;
+    }
+
+    .slider-ui .value.up {
+        top: -110%;
+        color: #000;
+    }
+
+    .slider-ui.color1 .bar {
+        background-color: #00b894;
+    }
+
+    .slider-ui.color1 .value {
+        border-color: #00b894;
+    }
+
+</style>
+<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+<script>
+
+    const sliders = document.querySelectorAll(".slider-ui");
+    sliders.forEach(slider => {
+        let input = slider.querySelector("input[type=range]");
+        let min = input.getAttribute("min");
+        let max = input.getAttribute("max");
+        let valueElem = slider.querySelector(".value");
+        function setValueElem() {
+            valueElem.innerText = input.value;
+            let percent = (input.value - min) / (max - min) * 100;
+            valueElem.style.left = percent + "%";
+        }
+        setValueElem();
+
+        input.addEventListener("input", setValueElem);
+        input.addEventListener("mousedown", () => {
+            valueElem.classList.add("up");
+        });
+        input.addEventListener("mouseup", () => {
+            valueElem.classList.remove("up");
+        });
+    });
+</script>
+
+
 {% endblock %}

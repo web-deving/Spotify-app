@@ -2,29 +2,31 @@ from flask import render_template, flash, redirect, url_for, request
 from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.urls import url_parse
 from app import app, db
-from app.forms import LoginForm, RegistrationForm
+from app.forms import LoginForm, RegistrationForm, MusicForm
 from app.models import User
-
+from app.recommendation import *
 @app.route('/')
 @app.route('/home')
 def home():
     return render_template('home.html')
 
-@app.route('/index')
+@app.route('/index', methods=['GET', 'POST'])
 @login_required
 def index():
-    posts = [
-        {
-            'author': {'username': 'John'},
-            'body': 'Beautiful day in Portland!'
-        },
-        {
-            'author': {'username': 'Susan'},
-            'body': 'The Avengers movie was so cool!'
-        }
-    ]
-    return render_template('index.html', title='Home', posts=posts)
+    form = MusicForm()
+    if request.method == 'POST':
+        energy = request.form['energy']
+        feeling = request.form['feeling']
+        if form.submit1.data:
+            #  use user songs
+            pass
+        elif form.submit2.data:
+            #  use dataset
+            result = recommend_general(float(feeling),float(energy),1)
+            id = result.split(" ")[0]
+            print("your song is ", result)
 
+    return render_template('index.html', title='Home', form=form)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -53,6 +55,7 @@ def logout():
 @app.route('/profile')
 def profile():
     pass
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:

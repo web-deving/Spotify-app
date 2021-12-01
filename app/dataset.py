@@ -7,7 +7,7 @@ from tqdm import tqdm
 import time
 
 # Authorize and call access object "sp"
-sp = authorization.authorize()
+sp = authorization.authorize_general()
 
 # Get all genres of spotify (120)
 genres = sp.recommendation_genre_seeds()

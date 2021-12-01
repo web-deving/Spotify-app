@@ -25,7 +25,7 @@ class User(UserMixin, db.Model):
 def load_user(id):
     return User.query.get(int(id))
 
-
+#change this to Song, it should have the corresponding mood, and timestamp and image art?
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     body = db.Column(db.String(140))

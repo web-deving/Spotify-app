@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
+from wtforms.fields.html5 import DecimalRangeField
 from app.models import User
 
 
@@ -28,3 +29,9 @@ class RegistrationForm(FlaskForm):
         user = User.query.filter_by(email=email.data).first()
         if user is not None:
             raise ValidationError('Please use a different email address.')
+
+class MusicForm(FlaskForm):
+    energy = DecimalRangeField('Energy')
+    feeling = DecimalRangeField('Feeling')
+    submit1 = SubmitField('Use my songs')
+    submit2 = SubmitField("Let's be random")
