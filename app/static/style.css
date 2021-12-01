@@ -155,7 +155,7 @@ img {
 
 #logo{
      width: 3em;
-     height: 2em;
+     height: 1em;
 }
 
  :focus {
@@ -320,11 +320,11 @@ button {
 }
 
 .logo a {
-     font-size: 40px;
+     font-size: 63px;
      font-weight: bold;
      text-transform: uppercase;
      color: #fff;
-     line-height: 40px;
+     line-height: 0px;
 }
 
 .banner_main {
