@@ -4,7 +4,7 @@ from werkzeug.urls import url_parse
 from app import app, db
 from app.forms import LoginForm, RegistrationForm, MusicForm
 from app.models import User
-from app.recommendation import *
+from app.functions import *
 @app.route('/')
 @app.route('/home')
 def home():
@@ -22,9 +22,9 @@ def index():
             pass
         elif form.submit2.data:
             #  use dataset
-            result = recommend_general(float(feeling),float(energy),1)
-            id = result.split(" ")[0]
-            print("your song is ", result)
+            result = recommend_general(float(feeling),float(energy),10)
+            print(result)
+            #print("your songs are ", result)
 
     return render_template('index.html', title='Home', form=form)
 
