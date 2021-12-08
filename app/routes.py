@@ -22,9 +22,9 @@ def index():
             pass
         elif form.submit2.data:
             #  use dataset
-            result = recommend_general(float(feeling),float(energy),10)
-            print(result)
-            #print("your songs are ", result)
+            result = recommend_general(float(feeling),float(energy),1)
+            url = "spotify:track:" + str(result)
+            return(redirect(url))
 
     return render_template('index.html', title='Home', form=form)
 
