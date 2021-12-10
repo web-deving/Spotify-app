@@ -1,37 +1,39 @@
 {% extends "base.html" %}
-
 {% block content %}
-    <h1>Register</h1>
-    <form action="{{ url_for('register') }}" method="post">
+<link rel="stylesheet" href="{{ url_for('static', filename='register.css') }}">
+<body>
+    
+    <form class="allform" action="{{ url_for('register') }}" method="post">
+        <h1>Register</h1>
         {{ form.hidden_tag() }}
-        <p>
-            {{ form.username.label }}<br>
-            {{ form.username(size=32) }}<br>
-            {% for error in form.username.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>
-            {{ form.email.label }}<br>
-            {{ form.email(size=64) }}<br>
-            {% for error in form.email.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>
-            {{ form.password.label }}<br>
-            {{ form.password(size=32) }}<br>
-            {% for error in form.password.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>
-            {{ form.password2.label }}<br>
-            {{ form.password2(size=32) }}<br>
-            {% for error in form.password2.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>{{ form.submit() }}</p>
+       <form class="register_form">
+            <p>
+                {{ form.username(size=32, class_="username", placeholder=form.username.label.text) }}<br>
+                {% for error in form.username.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>
+                {{ form.email(size=32, class_="email", placeholder=form.email.label.text) }}<br>
+                {% for error in form.email.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>
+                {{ form.password(size=32, class_="password", placeholder=form.password.label.text) }}<br>
+                {% for error in form.password.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>
+                {{ form.password2(size=32, class_="password2", placeholder=form.password2.label.text) }}<br>
+                {% for error in form.password2.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>{{ form.submit(class_="sign_up_button") }}<br></p>
+            <p class="message">Already have an account?<br> <a class="login_here" href="{{ url_for('login') }}">Log in here</a></p>
+        </form>
     </form>
+    </body>
 {% endblock %}
