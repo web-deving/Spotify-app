@@ -1,0 +1,62 @@
+h1{
+    font-size: 24px;
+    letter-spacing: 0px;
+    font-weight: normal;
+    position: relative;
+    padding: 0px;
+    font-weight: normal;
+    line-height: normal;
+    color: #111111;
+    margin: 10px;
+}
+
+body{
+    background-color: cadetblue;
+}
+form{
+    border-radius: 25px;
+    display: block;
+    margin: 0em;
+}
+
+.allform{
+    position: relative;
+    z-index: 1;
+    background: #FFFFFF;
+    max-width: 360px;
+    min-height: 322px;
+    margin: 100px auto 100px;
+    padding: 45px;
+    text-align: center;
+    box-shadow: 0 0 20px 0 rgb(0 0 0 / 20%), 0 5px 5px 0 rgb(0 0 0 / 24%);
+}
+
+.username{
+    border-radius: 25px;
+    border-color: cadetblue;
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+.password{
+    border-radius: 25px;
+    border-color: cadetblue;
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+.sign_in_button{
+    border-radius: 25px;
+    margin: 10px;
+}
+
+.message{
+    margin-top: 3px;
+}
+.register_here{
+    background-color: #111111;
+    color: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+    border-radius: 25px;
+    padding: 5px;
+}
