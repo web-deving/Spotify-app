@@ -33,5 +33,5 @@ class RegistrationForm(FlaskForm):
 class MusicForm(FlaskForm):
     energy = DecimalRangeField('Energy')
     feeling = DecimalRangeField('Feeling')
-    submit1 = SubmitField('Use my songs')
+    submit1 = SubmitField('Use my songs (coming soon)')
     submit2 = SubmitField("Let's be random")

@@ -75,11 +75,11 @@
                                                                         {% else %}
                                                                         <li class="nav-item">
                                                                                 <a class="nav-link"
-                                                                                        href="#contact">Profile</a>
+                                                                                        href="{{ url_for('index') }}">Home</a>
                                                                         </li>
                                                                         <li class="nav-item">
                                                                                 <a class="nav-link"
-                                                                                        href="#contact">Songs</a>
+                                                                                        href="{{ url_for('songs') }}">Songs</a>
                                                                         </li>
                                                                         <li class="nav-item">
                                                                                 <a class="nav-link"

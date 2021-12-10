@@ -40,16 +40,19 @@ def recommend_general(valence, energy, n_recs):
     ref_df["distances"] = ref_df["mood_vec"].apply(lambda x: norm(track_moodvec-np.array(x)))
     # Sort distances from lowest to highest
     ref_df_sorted = ref_df.sort_values(by = "distances", ascending = True)
-
     results = ref_df_sorted.iloc[:n_recs] #  can index the song info
     ids = results["id"].to_string(index=False, header = False)  #  split by "/n" if a list
+    name = results["track_name"].to_string(index=False, header = False)
+    artist = results["artist_name"].to_string(index=False, header = False)
     #print(ids.split("\n")[0])
     #print(results.to_string(index = False, header=False))
     #result = result.to_string(index = False, header = False)
     #recommend_specific(0.1,0.5,4)
-    return ids
+    return name,artist,ids
 
 
+def get_art(ids):
+    pass
 def make_playlist(ids):
     #sp = authorize_specific()
     scope = 'user-library-read user-top-read playlist-modify-public user-read-recently-played'

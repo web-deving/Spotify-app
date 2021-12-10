@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% set songs = user.songs.all() %}
+
+{% block content %}
+
+<div class="body">
+<div class="wrapper">
+    <div class="header">{{ current_user.username }} random songs history </div>
+    <div class="cards_wrap">
+        {% for song in songs %}
+        <div class= "card_item" >
+            <div class="card_inner">
+                <div class= "artist"> On {{ song.get_date() }}, your mood was:</div>
+                <div class = "artist"> Energy: {{ song.energy }} Valence: {{song.valence}} </div>
+                <div class = "artist"> So muzica gave you: </div>
+                <iframe src= "{{ song.link }}" width="100%" height="80" frameBorder="0" 
+                allowtransparency="true" allow="encrypted-media"></iframe>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+</div>
+<link rel="stylesheet" href="{{ url_for('static', filename='songs.css') }}">
+{%endblock %}
+    
+
